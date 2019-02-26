@@ -1,0 +1,107 @@
+{% extends 'embarcados/layout.html' %}
+{% load bootstrap4 %}
+{% load icons %}
+
+{% block content %}
+    <div class="container">
+      <form  method="post" novalidate>
+        <div class="row">
+                <div class=" col-4">
+                    <div class="row">
+                        <div class="card-header col-12" align="center" style="background-color:gray" >
+                            <h8><b>EMBARCADO</b></h8>
+                        </div >
+                        <div class="form-group col-12 ">
+                                    <p></p>
+                            {% csrf_token %}
+                            {% bootstrap_field form_embedded.hardware size='small' %}
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="File" lang="pt-br"  onchange="$(this).next().after().text($(this).val().split('\\').slice(-1)[0])"/>
+                                <label class="custom-file-label" for="File">
+                                    upload firmware
+                                </label>
+
+                            </div>
+                            {% bootstrap_field form_embedded.location size='small'%}
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-8">
+                     <div class="card-header" align="center" style="background-color:gray">
+                        <h8><b>SENSORES</b></h8>
+                    </div>
+                    <p></p>
+                    <a href="{% url 'new_embedded' %}">
+                    <button type="submit" class="btn-sm btn-primary">
+                        {% icon "plus" %} Sensores
+                    </button>
+                    </a>
+                    <table class="table table-striped table-sm">
+                            <tr align="center">
+                                <th>ID</th>
+                                <th>Descrição</th>
+                                <th>Taxa de Amostragem</th>
+                                <th>Qt. Dado | Unid. Tempo</th>
+                                <th>Dados</th>
+                            </tr>
+                    </table>
+                </div>
+        </div>
+          <!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+        <div class="row">
+              <p></p>
+
+              <div class="col-4">
+                  <div class="row">
+                          <div class="card-header col-12" align="center" style="background-color:gray">
+                                <h8><b>INTERFACE DE REDE</b></h8>
+                          </div>
+                          <div class=" form-group col-6" >
+                                <p></p>
+                                {% bootstrap_field form_embedded.ip size='small' %}
+                                {% bootstrap_field form_embedded.mac size='small' %}
+                                {% bootstrap_field form_embedded.mode size='small' %}
+                          </div>
+                          <div class=" form-group col-6">
+                                <p></p>
+                                {% bootstrap_field form_embedded.mask size='small' %}
+                                {% bootstrap_field form_embedded.gateway size='small' %}
+                                {% bootstrap_field form_embedded.essid size='small' %}
+                          </div>
+                  </div>
+              </div>
+              <div class="col-8">
+                    <div class="card-header" align="center" style="background-color:gray">
+                        <h8><b>ATUADORES</b></h8>
+                    </div>
+                  <p></p>
+                  <button type="submit" class="btn-sm btn-primary">
+                        {% icon "plus" %} Atuadores
+                    </button>
+                    <table class="table table-striped table-sm">
+                            <tr align="center">
+                                <th>ID</th>
+                                <th>Descrição</th>
+                                <th>Status</th>
+                                <th>Comandos</th>
+                            </tr>
+                    </table>
+              </div>
+        </div>
+        <div class="row" align="center">
+              <div class="col-4">
+                <p></p>
+                <button class="btn-success btn-sm"  style="width:85px" type="submit" id="btnSalvar" name="btnSalvar" {{btnSalvar}}> Salvar </button>
+                <button class="btn-danger btn-sm" style="width:85px" type="submit" id="btnExcluir" name="btnExcluir" {{btnExcluir}}> Excluir </button>
+                <a href="{% url 'list_embedded' %}">
+                    <button class="btn-secondary btn-sm" style="width:85px" type="button" oncancel="{% url 'list_embedded' %}">Cancelar</button>
+                </a>
+              </div>
+        </div>
+      </form>
+    </div>
+<script>
+    <!---->
+</script>
+{% endblock %}

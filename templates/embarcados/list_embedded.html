@@ -1,0 +1,63 @@
+{% extends 'embarcados/layout.html' %}
+
+{% load bootstrap4 %}
+{% load font_awesome %}
+{% fa_css %}
+{% bootstrap_messages %}
+{% load  icons %}
+{% block content %}
+
+             <a href="{% url 'new_embedded' %}">
+                 <button type="submit" class="btn-sm btn-primary">
+                     {% icon 'plus' %} Embarcado
+                </button>
+            </a>
+    <p></p>
+
+    <table class="table table-striped table-sm">
+        <tr align="center">
+            <th>ID</th>
+            <th>Desliga | Liga</th>
+            <th>Hardware</th>
+            <th>Modo</th>
+            <th>Endereço IP</th>
+            <th>MAC</th>
+            <th>Gateway</th>
+            <th>&nbsp&nbsp&nbsp Edição | Exclusão</th>
+        </tr>
+
+
+        {% for device in devices %}
+            <tr>
+                <td align="center">{{device.id}}</td>
+                <td align="center" vertical-align="middle" >
+                    &nbsp&nbsp&nbsp&nbsp Off
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    On
+                </td>
+                <td align="center">{{device.hardware}}</td>
+                <td align="center">{{device.mode}}</td>
+                <td align="center">{{device.ip}}</td>
+                <td align="center">{{device.mac}}</td>
+                <td align="center">{{device.gateway}}</td>
+
+                <td align="center">
+                    <a href="{% url 'update_embedded' device.id %}">
+                            <button type="submit" class="btn-sm btn-warning">
+                                {% icon "edit" %}
+                            </button>
+                    </a> &nbsp&nbsp
+                    <a href="{% url 'delete_embedded' device.id %}">
+                            <button type="submit" class="btn-sm btn-danger">
+                                {% icon "trash" %}
+                            </button>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}
